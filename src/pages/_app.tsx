@@ -8,16 +8,19 @@ import { type ReactNode, useMemo } from "react";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import { Shell } from "@/_components/shell";
-import {MANTINE_THEME} from "@/config/common";
+import { PrivateShell } from "@/_components/private-shell";
+import { MANTINE_THEME } from "@/config/common";
+import { PublicShell } from "@/_components/public-shell";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <MantineProvider theme={MANTINE_THEME}>
       <ClerkProviderWithTheme>
-        <Shell>
-          <Component {...pageProps} />
-        </Shell>
+        <PrivateShell>
+          <PublicShell>
+            <Component {...pageProps} />
+          </PublicShell>
+        </PrivateShell>
       </ClerkProviderWithTheme>
     </MantineProvider>
   );

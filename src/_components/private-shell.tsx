@@ -5,7 +5,6 @@ import {
   Burger,
   Container,
   Group,
-  Switch,
   Text,
   ThemeIcon,
   useMantineColorScheme,
@@ -18,7 +17,7 @@ import { Logo, NAVBAR_LINKS } from "@/config/client";
 import { SITE_DATA } from "@/config/common";
 
 import cx from "clsx";
-import classes from "./shell.module.css";
+import classes from "./private-shell.module.css";
 
 import { IconMoon, IconSun } from "@tabler/icons-react";
 
@@ -42,7 +41,7 @@ const NavbarLink = ({ label, color, icon, url }: NavbarLinkInfo) => {
   );
 };
 
-export const Shell = ({ children }: { children: ReactNode }) => {
+export const PrivateShell = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const { toggleColorScheme } = useMantineColorScheme();
