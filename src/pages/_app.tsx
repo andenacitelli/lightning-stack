@@ -3,13 +3,13 @@ import { type AppType } from "next/app";
 import { api } from "@/utils/api";
 import { MantineProvider, useMantineColorScheme } from "@mantine/core";
 import { dark } from "@clerk/themes";
-import { MANTINE_THEME } from "@/SITE_DATA";
 import { ClerkProvider } from "@clerk/nextjs";
 import { type ReactNode, useMemo } from "react";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import { Shell } from "@/_components/shell";
+import {MANTINE_THEME} from "@/config/common";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (

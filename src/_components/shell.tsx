@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Anchor,
   AppShell,
   Burger,
@@ -9,13 +10,17 @@ import {
   ThemeIcon,
   useMantineColorScheme,
 } from "@mantine/core";
-import { NAVBAR_LINKS } from "@/SITE_DATA";
 import { type ReactNode } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Logo } from "@/SITE_DATA";
 import { UserButton } from "@clerk/nextjs";
-import { IconMoon, IconSun } from "@tabler/icons-react";
 import { useRouter } from "next/router";
+import { Logo, NAVBAR_LINKS } from "@/config/client";
+import { SITE_DATA } from "@/config/common";
+
+import cx from "clsx";
+import classes from "./shell.module.css";
+
+import { IconMoon, IconSun } from "@tabler/icons-react";
 
 export type NavbarLinkInfo = {
   label: string;
@@ -33,7 +38,6 @@ const NavbarLink = ({ label, color, icon, url }: NavbarLinkInfo) => {
         </ThemeIcon>
         <Text>{label}</Text>
       </Group>
-      X
     </Anchor>
   );
 };
@@ -41,7 +45,7 @@ const NavbarLink = ({ label, color, icon, url }: NavbarLinkInfo) => {
 export const Shell = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const { toggleColorScheme } = useMantineColorScheme();
 
   if (!router.route.startsWith("/app")) return <>{children}</>; // only shell on `/app/**/*`
   return (
@@ -64,16 +68,18 @@ export const Shell = ({ children }: { children: ReactNode }) => {
               size="sm"
             />
             <Logo size={30} />
+            <Text>{SITE_DATA.title}</Text>
           </Group>
           <Group h="100%" px="md">
-            <UserButton />
-            <Switch
+            <UserButton afterSignOutUrl="/" />
+            <ActionIcon
               size={"lg"}
-              checked={colorScheme === "dark"}
-              onChange={toggleColorScheme}
-              offLabel={<IconMoon />}
-              onLabel={<IconSun />}
-            ></Switch>
+              onClick={toggleColorScheme}
+              variant={"light"}
+            >
+              <IconMoon className={cx(classes.icon, classes.dark)} />
+              <IconSun className={cx(classes.icon, classes.light)} />
+            </ActionIcon>
           </Group>
         </Group>
       </AppShell.Header>

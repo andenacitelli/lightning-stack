@@ -1,5 +1,5 @@
-import { SITE_DATA } from "@/SITE_DATA";
 import Head from "next/head";
+import {SITE_DATA} from "@/config/common";
 
 export default function Home() {
   return (
