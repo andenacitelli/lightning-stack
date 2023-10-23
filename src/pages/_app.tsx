@@ -3,24 +3,28 @@ import { type AppType } from "next/app";
 import { api } from "@/utils/api";
 import { MantineProvider, useMantineColorScheme } from "@mantine/core";
 import { dark } from "@clerk/themes";
-import { MANTINE_THEME } from "@/config";
+import { MANTINE_THEME } from "@/SITE_DATA";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ReactNode, useMemo } from "react";
+import { type ReactNode, useMemo } from "react";
 
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import { Shell } from "@/_components/shell";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <MantineProvider theme={MANTINE_THEME}>
       <ClerkProviderWithTheme>
-        <Component {...pageProps} />
+        <Shell>
+          <Component {...pageProps} />
+        </Shell>
       </ClerkProviderWithTheme>
     </MantineProvider>
   );
 };
 
 const ClerkProviderWithTheme = ({ children }: { children: ReactNode }) => {
+  // Decoupled into separate component so that <MantineProvider /> is a parent and we can use Mantine hooks
   const { colorScheme } = useMantineColorScheme();
   const clerkAppearance = useMemo(() => {
     return { baseTheme: colorScheme === "dark" ? dark : undefined };
