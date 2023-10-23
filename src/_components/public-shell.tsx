@@ -1,3 +1,7 @@
+/**
+ * Fairly minimalistic shell only shown on public pages (anything not prefixed with /app)
+ */
+
 import {
   Anchor,
   AppShell,
@@ -15,8 +19,7 @@ import { SITE_DATA } from "@/config/common";
 export const PublicShell = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
-
-  if (router.route.startsWith("/app")) return <>{children}</>; // this shell is only on public pages
+  if (router.route.startsWith("/app")) return children; // this shell is only on public pages
   return (
     <AppShell header={{ height: { base: 60, md: 70 } }} padding="md">
       <AppShell.Header withBorder={false} px={"lg"}>
@@ -35,7 +38,7 @@ export const PublicShell = ({ children }: { children: ReactNode }) => {
             <Anchor href={"/pricing"} c={"white"}>
               Pricing
             </Anchor>
-            <Anchor href={"/pricing"} c={"white"}>
+            <Anchor href={"/features"} c={"white"}>
               Features
             </Anchor>
           </Group>

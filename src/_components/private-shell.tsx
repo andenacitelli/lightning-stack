@@ -1,3 +1,7 @@
+/**
+ * More thorough shell shown on all private / authenticated pages (i.e. anything prefixed with /app)
+ */
+
 import {
   ActionIcon,
   Anchor,
@@ -45,8 +49,7 @@ export const PrivateShell = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const [opened, { toggle }] = useDisclosure();
   const { toggleColorScheme } = useMantineColorScheme();
-
-  if (!router.route.startsWith("/app")) return <>{children}</>; // only shell on `/app/**/*`
+  if (!router.route.startsWith("/app")) return children; // only shell on `/app/**/*`
   return (
     <AppShell
       header={{ height: { base: 60, md: 70, lg: 80 } }}
